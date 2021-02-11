@@ -7,7 +7,7 @@ const Meme = require('../models/meme');
 router.get('/', (req,res) => {
     Meme.find().limit(100).sort({ $natural:-1 })
         .then( result => {
-                console.log(result);
+                console.log(typeof result);
                 res.json(result);
             
         })
