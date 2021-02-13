@@ -28,7 +28,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 // meme routes
 app.use('/memes', memeRoutes);

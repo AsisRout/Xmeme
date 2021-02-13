@@ -9,4 +9,4 @@ cd ./Backend
 
 npm install
 
-npm run
+npm start
