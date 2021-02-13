@@ -8,7 +8,7 @@ router.get('/', (req,res) => {
     Meme.find().limit(100).sort({ $natural:-1 })
         .then( result => {
                 console.log(typeof result);
-                res.json(result);
+                res.status(200).json(result);
             
         })
         .catch(err => {
@@ -19,6 +19,18 @@ router.get('/', (req,res) => {
 
 // Add a meme to the db
 router.post('/', (req,res) => {
+      /* #swagger.parameters['name'] = {
+               description: 'Enter Name',
+               type: 'string'
+        } */
+      /* #swagger.parameters['caption'] = {
+               description: 'Enter Caption',
+               type: 'string'
+        } */
+          /* #swagger.parameters['url'] = {
+               description: 'Enter URL',
+               type: 'string'
+        } */
     const meme = new Meme(req.body);
     meme.save()
         .then(result => {
@@ -35,7 +47,7 @@ router.get('/:id', (req,res) => {
     const id = req.params.id;
     Meme.findById(id)
         .then(result => {
-            res.send(result);
+            res.status(200).send(result);
     })
         .catch(err => {
             console.log(err);
@@ -45,7 +57,25 @@ router.get('/:id', (req,res) => {
 
 //Update a meme in the db
 router.patch('/:id', (req,res) => {
-    res.send({type:'PATCH'});
+        
+      /* #swagger.parameters['caption'] = {
+               description: 'Enter Caption',
+               type: 'string'
+        } */
+          /* #swagger.parameters['url'] = {
+               description: 'Enter URL',
+               type: 'string'
+        } */
+        var updateObject = req.body; 
+        var id = req.params.id;
+        Meme.findByIdAndUpdate(id, {$set: updateObject})
+        .then( result => {
+            res.status(200).send(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send();
+        });
 });
 
 //Delete a meme in the db
@@ -53,7 +83,7 @@ router.delete('/:id', (req,res) => {
     const id = req.params.id;
     Meme.findByIdAndDelete(id)
         .then(result => {
-            res.send(result);
+            res.status(200).send();
       })
         .catch(err => {
             console.log(err);

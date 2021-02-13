@@ -3,39 +3,33 @@
   <head>
     <title>XMeme</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="./src/styles.css" />
+  <link rel="stylesheet" type="text/css" href="./public/styles.css" /> 
+   <!-- <link rel="stylesheet" type="text/css" href="./static/styles.css" /> -->
   </head>
   <body>
 
-  <h1>XMeme</h1>
+  <h1 class='heading'>XMeme</h1>
+  <a class='swagger' href="https://xmemes-api.herokuapp.com/doc/" target="_blank" title="Go to Swagger UI of the API's used">
+    <img src="https://cavedweller92.files.wordpress.com/2019/07/swagger-logo-horizontal.png"></img></a>
 <div class="container">
-    <form action="">
+    <form class="add">
       <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Your name..">
+      <input type="text" name="name" placeholder="Your name.." required>
   
       <label for="caption">Caption</label>
-      <input type="text" id="caption"  placeholder="Enter caption..">
+      <input type="text" name="caption"  placeholder="Enter caption.." required>
   
       <label for="url">URL</label>
-      <input type="text" id="url"  placeholder="Enter URL..">
+      <input type="text" name="url"  placeholder="Enter URL.." required>
   
       <input type="submit" value="Submit">
     </form>
   </div>
-  <div class="card">
-    <h4>
-      <a
-        href="https://therighthairstyles.com/20-most-inspiring-  natural-hairstyles-for-short-hair/"
-      >
-        Flat-Twist With Twist Out
-      </a>
-    </h4>
-    <img
-      src="https://i0.wp.com/therighthairstyles.com/wp-content/uploads/2014/03/13-flat-twist-with-twist-out-2.jpg?w=500&ssl=1"
-    />
+  <div class="showMemes"> 
+
   </div>
   
-  
-    <script src="src/index.js"></script>
+  <script src="./public/index.js"></script> 
+  <!-- <script src="./static/index.js"></script>  -->
   </body>
 </html>
