@@ -15,8 +15,7 @@ app.use(cors())
 
 
 // connect to mongodb 
-// const dbURI = 'mongodb+srv://asis123:265rohit@cluster0.xbfv4.mongodb.net/xmeme?retryWrites=true&w=majority';
-const dbURI =  "mongodb://localhost:27017/meme";
+const dbURI =  process.env.MONGODB_URI ? process.env.MONGODB_URI: "mongodb://localhost:27017/meme";
 
 
 

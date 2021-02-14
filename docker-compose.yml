@@ -6,9 +6,10 @@ services:
       - "8081:8081"
     depends_on:
       - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/meme
   mongo:
     image: mongo
     ports:
       - "27017:27017"
-    environment:
-      - MONGODB_URI=mongodb://mongo:27017/meme
+    

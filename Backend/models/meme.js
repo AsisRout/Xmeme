@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+ 
+
 const memeSchema = new Schema({
     name: {
         type: String,
@@ -16,6 +19,13 @@ const memeSchema = new Schema({
     },
 
 });
+memeSchema.set('toJSON', {
+    transform: function (doc, ret, options) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+    }
+}); 
 
 const Meme = mongoose.model('meme',memeSchema);
 module.exports = Meme;

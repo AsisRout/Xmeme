@@ -1,6 +1,6 @@
 
-//const backend_url = 'http://localhost:8081/memes';
-const backend_url = 'https://xmemes-api.herokuapp.com/memes';
+const backend_url = 'http://localhost:8081/memes';
+// const backend_url = 'https://xmemes-api.herokuapp.com/memes';
 const memeForm =  document.querySelector('.add');
 const showMemes = document.querySelector('.showMemes');
 
@@ -10,6 +10,34 @@ const getMemes = async() => {
     const data = await response.json();
     console.log(data);
     return data;
+}   
+
+const addHTML = (meme) => {
+    if(meme._id)
+        meme.id=meme._id;
+    return `<div class="card" id=${meme.id}>
+            <h4> ${meme.name} </h4>
+            <p>caption : ${meme.caption} </p>
+            <img src=${meme.url} onerror="this.src='http:///i.imgur.com/hfM1J8s.png'"/>
+            <button class ="deletebutton">
+              Delete
+            </button>
+            <button class ="editbutton" >Edit</button>
+            <div class="myDiv" style="display:none">
+            <form class="editform" onsubmit="return false">
+            <label for="name">Name</label>
+            <input type="text" name="name" value=${meme.name} readonly>
+        
+            <label for="caption">Caption</label>
+            <input type="text" name="caption" value=${meme.caption} required>
+        
+            <label for="url">URL</label>
+            <input type="text" name="url"  value=${meme.url} required>
+        
+            <input type="submit" value="Update" >
+          </form>
+            </div>
+            </div>` ;
 }
 
 const displayUI = () => {
@@ -20,32 +48,7 @@ const displayUI = () => {
         data.forEach( (meme,index) => {
             console.log(meme.url);
             // update displayMemes template
-            showMemes.innerHTML+=
-            `<div class="card" id=${meme._id}>
-            <h4> ${meme.name} </h4>
-            <p>caption : ${meme.caption} </p>
-            <img src=${meme.url} />
-            <button class ="deletebutton">
-                Delete
-            </button>
-            <button class ="editbutton" >Edit</button>
-            <div class="myDiv" style="display:none">
-            <form class="editform" onsubmit="return false">
-            <label for="name">Name</label>
-            <input type="text" name="name" value=${meme.name} readonly>
-        
-            <label for="caption">Caption</label>
-            <input type="text" name="caption"  placeholder="Enter caption.." required>
-        
-            <label for="url">URL</label>
-            <input type="text" name="url"  placeholder="Enter URL.." required>
-        
-            <input type="submit" value="Update" >
-          </form>
-            </div>
-
-
-            </div>`;
+            showMemes.innerHTML+=addHTML(meme);
         })
     })
     .catch(err => console.log(err));
@@ -55,30 +58,7 @@ const displayUI = () => {
 
 const addUI = (meme) => {
     console.log(showMemes.innerHTML);
-    showMemes.innerHTML=
-            `<div class="card" id=${meme.id}>
-            <h4> ${meme.name} </h4>
-            <p>caption : ${meme.caption} </p>
-            <img src=${meme.url} />
-            <button class ="deletebutton">
-              Delete
-            </button>
-            <button class ="editbutton" >Edit</button>
-            <div class="myDiv" style="display:none">
-            <form class="editform" onsubmit="return false">
-            <label for="name">Name</label>
-            <input type="text" name="name" value=${meme.name} readonly>
-        
-            <label for="caption">Caption</label>
-            <input type="text" name="caption"  placeholder="Enter caption.." required>
-        
-            <label for="url">URL</label>
-            <input type="text" name="url"  placeholder="Enter URL.." required>
-        
-            <input type="submit" value="Update" >
-          </form>
-            </div>
-            </div>` + showMemes.innerHTML;
+    showMemes.innerHTML= addHTML(meme)+ showMemes.innerHTML;
         
             console.log(showMemes.innerHTML);
 }
@@ -88,7 +68,7 @@ const updateUI = (e, meme) => {
     e.innerHTML = 
             `<h4> ${meme.name} </h4>
             <p>caption : ${meme.caption} </p>
-            <img src=${meme.url} />
+            <img src=${meme.url} onerror="this.src='http:///i.imgur.com/hfM1J8s.png'" />
             <button class ="deletebutton">
               Delete
             </button>
@@ -99,10 +79,10 @@ const updateUI = (e, meme) => {
             <input type="text" name="name" value=${meme.name} readonly>
         
             <label for="caption">Caption</label>
-            <input type="text" name="caption"  placeholder="Enter caption.." required>
+            <input type="text" name="caption"  value=${meme.caption} required>
         
             <label for="url">URL</label>
-            <input type="text" name="url"  placeholder="Enter URL.." required>
+            <input type="text" name="url"  value=${meme.url} required>
         
             <input type="submit" value="Update" >
           </form>

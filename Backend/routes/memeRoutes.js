@@ -32,6 +32,12 @@ router.post('/', (req,res) => {
                type: 'string'
         } */
     const meme = new Meme(req.body);
+    Meme.find(req.body , function(err,docs){
+    
+    if(docs.length){
+        res.status(409).send();
+    }
+    else {
     meme.save()
         .then(result => {
             res.status(201).json({id : result.id});
@@ -40,6 +46,8 @@ router.post('/', (req,res) => {
              console.log(err);
              res.status(500).send();
         });
+    }
+    })
 });
 
 // Display a meme
@@ -56,7 +64,7 @@ router.get('/:id', (req,res) => {
 });
 
 //Update a meme in the db
-router.patch('/:id', (req,res) => {
+router.patch('/:id', async(req,res) => {
         
       /* #swagger.parameters['caption'] = {
                description: 'Enter Caption',
@@ -68,8 +76,9 @@ router.patch('/:id', (req,res) => {
         } */
         var updateObject = req.body; 
         var id = req.params.id;
-        Meme.findByIdAndUpdate(id, {$set: updateObject})
+        await Meme.findByIdAndUpdate(id, {$set: updateObject})
         .then( result => {
+            console.log(result);
             res.status(200).send(result);
         })
         .catch(err => {
