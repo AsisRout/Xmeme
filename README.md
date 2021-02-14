@@ -15,4 +15,8 @@ Additional Features:
 - Docker
 - Swagger
 - Responsive Web Page
+- Handling Error with status Codes
+- Modularity
+
+
 
